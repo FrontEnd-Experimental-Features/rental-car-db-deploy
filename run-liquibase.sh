@@ -12,7 +12,7 @@ done
 echo "PostgreSQL is ready. Running Liquibase..."
 
 # Run Liquibase
-liquibase \
+$LIQUIBASE_HOME/liquibase \
   --changelog-file=/liquibase/changelog.xml \
   --url="jdbc:postgresql://localhost:5432/$POSTGRES_DB" \
   --username="$POSTGRES_USER" \
