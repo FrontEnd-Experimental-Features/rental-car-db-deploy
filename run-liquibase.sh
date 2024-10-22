@@ -4,10 +4,19 @@ set -e
 echo "Starting run-liquibase.sh script"
 
 # Wait for PostgreSQL to start
-until pg_isready -h postgres -U "$POSTGRES_USER" -d "$POSTGRES_DB"; do
-  echo "Waiting for PostgreSQL to start..."
-  sleep 2
+for i in {1..30}; do
+  if pg_isready -h postgres -U "$POSTGRES_USER" -d "$POSTGRES_DB"; then
+    echo "PostgreSQL is ready"
+    break
+  fi
+  echo "Waiting for PostgreSQL to start... (Attempt $i/30)"
+  sleep 5
 done
+
+if [ $i -eq 30 ]; then
+  echo "Timeout waiting for PostgreSQL to start"
+  exit 1
+fi
 
 echo "PostgreSQL is ready. Running Liquibase..."
 

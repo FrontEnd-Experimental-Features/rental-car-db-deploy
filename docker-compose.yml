@@ -36,7 +36,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_DB: ${POSTGRES_DB}
       LIQUIBASE_HOME: /usr/local/liquibase
-    command: ["/bin/sh", "-c", "/docker-entrypoint-initdb.d/run-liquibase.sh"]
+    command: ["/bin/sh", "-c", "sleep 10 && /docker-entrypoint-initdb.d/run-liquibase.sh"]
     env_file: .env
 
 volumes:
