@@ -1,14 +1,16 @@
 # Use an official PostgreSQL image as the base image
 FROM postgres:14-alpine
 
-# Install Liquibase
+# Install Liquibase and its dependencies
 RUN apk add --no-cache openjdk11-jre-headless wget \
-    && wget -O /usr/local/bin/liquibase.tar.gz https://github.com/liquibase/liquibase/releases/download/v4.23.0/liquibase-4.23.0.tar.gz \
-    && tar -xzf /usr/local/bin/liquibase.tar.gz -C /usr/local/bin \
-    && rm /usr/local/bin/liquibase.tar.gz
+    && wget -O /tmp/liquibase.tar.gz https://github.com/liquibase/liquibase/releases/download/v4.23.0/liquibase-4.23.0.tar.gz \
+    && mkdir -p /usr/local/liquibase \
+    && tar -xzf /tmp/liquibase.tar.gz -C /usr/local/liquibase \
+    && rm /tmp/liquibase.tar.gz
 
 # Set up environment variables
-ENV LIQUIBASE_HOME /usr/local/bin/liquibase
+ENV LIQUIBASE_HOME /usr/local/liquibase
+ENV PATH $PATH:/usr/local/liquibase
 
 # Copy your Liquibase changelog files
 COPY liquibase /liquibase
