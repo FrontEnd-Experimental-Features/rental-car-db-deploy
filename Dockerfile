@@ -20,3 +20,5 @@ COPY run-liquibase.sh /docker-entrypoint-initdb.d/
 
 # Make the script executable
 RUN chmod +x /docker-entrypoint-initdb.d/run-liquibase.sh
+
+CMD ["/bin/bash"]
