@@ -2,9 +2,7 @@ version: '3.9'
 
 services:
   postgres:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: postgres:14-alpine
     container_name: car_rental_postgres
     restart: unless-stopped
     ports:
@@ -15,26 +13,30 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_DB: ${POSTGRES_DB}
-    env_file: .env
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 5
+    env_file: .env
 
   liquibase:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: liquibase/liquibase:4.23.0-alpine
+    platform: linux/arm64
+    profiles: ["db-migrate"]
     depends_on:
       postgres:
         condition: service_healthy
-    command: ["/bin/sh", "-c", "/docker-entrypoint-initdb.d/run-liquibase.sh"]
-    environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_DB: ${POSTGRES_DB}
-      LIQUIBASE_HOME: /usr/local/liquibase
+    volumes:
+      - ./liquibase:/liquibase/changelog
+    command: [
+      "update",
+      "--changelog-file=changelog.xml",
+      "--url=jdbc:postgresql://postgres:5432/${POSTGRES_DB}",
+      "--username=${POSTGRES_USER}",
+      "--password=${POSTGRES_PASSWORD}",
+      "--logLevel=DEBUG"
+    ]
     env_file: .env
 
 volumes:
