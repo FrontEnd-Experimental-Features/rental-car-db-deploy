@@ -1,8 +1,8 @@
-# Use an official PostgreSQL image as the base image
-FROM postgres:14-alpine
+# Use an official Java image as the base image
+FROM openjdk:11-jre-slim
 
 # Install Liquibase and its dependencies
-RUN apk add --no-cache openjdk11-jre-headless wget postgresql-client \
+RUN apt-get update && apt-get install -y wget postgresql-client \
     && wget -O /tmp/liquibase.tar.gz https://github.com/liquibase/liquibase/releases/download/v4.23.0/liquibase-4.23.0.tar.gz \
     && mkdir -p /usr/local/liquibase \
     && tar -xzf /tmp/liquibase.tar.gz -C /usr/local/liquibase \
@@ -16,9 +16,9 @@ ENV PATH $PATH:/usr/local/liquibase
 COPY liquibase /liquibase
 
 # Copy the run-liquibase script
-COPY run-liquibase.sh /docker-entrypoint-initdb.d/
+COPY run-liquibase.sh /run-liquibase.sh
 
 # Make the script executable
-RUN chmod +x /docker-entrypoint-initdb.d/run-liquibase.sh
+RUN chmod +x /run-liquibase.sh
 
 CMD ["/bin/bash"]
