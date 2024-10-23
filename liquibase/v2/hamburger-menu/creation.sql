@@ -1,3 +1,23 @@
+-- Table: public.OptionsHamburgerMenu
+
+-- DROP TABLE IF EXISTS public."OptionsHamburgerMenu";
+
+CREATE TABLE IF NOT EXISTS public."OptionsHamburgerMenu"
+(
+    "Id" integer NOT NULL,
+    "IsActive" boolean DEFAULT true,
+    "Name" character varying(30) COLLATE pg_catalog."default",
+    CONSTRAINT "optionsHamburgerMenu_pkey" PRIMARY KEY ("Id"),
+    CONSTRAINT "OptionsHamburgerMenu_Id_key" UNIQUE ("Id")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."OptionsHamburgerMenu"
+    OWNER to super_user;
+
+
+
 -- Table: public.OptionsHamburgerSubMenu
 
 -- DROP TABLE IF EXISTS public."OptionsHamburgerSubMenu";
@@ -20,22 +40,3 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public."OptionsHamburgerSubMenu"
     OWNER to super_user;
 
-
-
--- Table: public.OptionsHamburgerMenu
-
--- DROP TABLE IF EXISTS public."OptionsHamburgerMenu";
-
-CREATE TABLE IF NOT EXISTS public."OptionsHamburgerMenu"
-(
-    "Id" integer NOT NULL,
-    "IsActive" boolean DEFAULT true,
-    "Name" character varying(30) COLLATE pg_catalog."default",
-    CONSTRAINT "optionsHamburgerMenu_pkey" PRIMARY KEY ("Id"),
-    CONSTRAINT "OptionsHamburgerMenu_Id_key" UNIQUE ("Id")
-)
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public."OptionsHamburgerMenu"
-    OWNER to super_user;
