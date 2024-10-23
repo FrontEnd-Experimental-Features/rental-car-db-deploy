@@ -5,17 +5,18 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <!-- v1 changes -->
+    <!-- v1 changes (already deployed) -->
     <!-- Car Category -->
     <include file="v1/car-category/creation.sql" relativeToChangelogFile="true"/>
     <include file="v1/car-category/insertion.sql" relativeToChangelogFile="true"/>
 
-    <!-- Hamburger Menu -->
-    <!-- <include file="v1/hamburger-menu/creation.sql" relativeToChangelogFile="true"/>  -->
-    <!-- <include file="v1/hamburger-menu/insertion.sql" relativeToChangelogFile="true"/>  -->
-
     <!-- Search -->
     <include file="v1/search/creation.sql" relativeToChangelogFile="true"/>
     <include file="v1/search/insertion.sql" relativeToChangelogFile="true"/>
+
+    <!-- v2 changes (new) -->
+    <!-- Hamburger Menu -->
+    <include file="v2/hamburger-menu/creation.sql" relativeToChangelogFile="true"/>
+    <include file="v2/hamburger-menu/insertion.sql" relativeToChangelogFile="true"/>
    
 </databaseChangeLog>
