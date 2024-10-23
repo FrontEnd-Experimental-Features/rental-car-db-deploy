@@ -16,7 +16,9 @@
 
     <!-- v2 changes (new) -->
     <!-- Hamburger Menu -->
-    <include file="v2/hamburger-menu/creation.sql" relativeToChangelogFile="true"/>
-    <include file="v2/hamburger-menu/insertion.sql" relativeToChangelogFile="true"/>
+    <!-- <include file="v2/hamburger-menu/creation.sql" relativeToChangelogFile="true"/> -->
+    <!--  <include file="v2/hamburger-menu/insertion.sql" relativeToChangelogFile="true"/> -->
    
+    <include file="v3/hamburger-menu/creation.sql" relativeToChangelogFile="true"/>
+    <include file="v3/hamburger-menu/insertion.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>
