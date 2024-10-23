@@ -19,7 +19,7 @@ WHERE NOT EXISTS (
 
 -- Insert submenu items if they don't exist
 INSERT INTO public."OptionsHamburgerSubMenu" ("SubMenu", "SubMenuOptions", "IsActive")
-SELECT subquery.submenu_id, subquery.option, true
+SELECT "OptionsHamburgerMenu"."Id", t.option, true
 FROM (
     VALUES 
     ('Reservations', 'Make a Reservation'),
